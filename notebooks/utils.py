@@ -123,7 +123,7 @@ def add_libelles(
     fake_obs = df_naf[df_naf["code"].isin(missing_codes)]
     fake_obs[y] = fake_obs["code"]
     fake_obs[text_feature] = fake_obs[[text_feature]].apply(
-        lambda row: " ".join(f"[{col}] {val}" for col, val in row.items() if val != ""), axis=1
+        lambda row: " ".join(f"{val}" for col, val in row.items() if val != ""), axis=1
     )
     df = pd.concat([df, fake_obs[[col for col in fake_obs.columns if col in df.columns]]])
 
