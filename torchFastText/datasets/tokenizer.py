@@ -136,7 +136,7 @@ class NGramTokenizer:
     @staticmethod
     def get_word_ngram_id(hashes: Tuple[int], bucket: int, nwords: int) -> int:
         """
-        Get word ngram hash.
+        Get word ngram index in the embedding matrix.
 
         Args:
             hashes (Tuple[int]): Word hashes.
