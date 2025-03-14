@@ -41,7 +41,7 @@ class NGramTokenizer:
                 in the training data to be given an embedding.
             min_n (int): Minimum length of character n-grams.
             max_n (int): Maximum length of character n-grams.
-            num_tokens (int): Number of rows in the embedding matrix.
+            num_tokens (int): Number of rows for subwords tokens in the embedding matrix.
             word_ngrams (int): Maximum length of word n-grams.
             training_text (List[str]): List of training texts.
 

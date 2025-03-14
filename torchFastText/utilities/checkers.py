@@ -1,13 +1,39 @@
 import logging
 import json
-from typing import Optional, Union, Type, List
+from typing import Optional, Union, Type, List, Tuple
 
 import numpy as np
 
 logger = logging.getLogger(__name__)
 
 
-def check_X(X):
+def check_X(X: np.ndarray) -> Tuple[np.ndarray, Optional[np.ndarray], bool]:
+    """
+    Validate and preprocess the input array X.
+
+    This function ensures that X is a NumPy array and extracts the text 
+    (first column) and categorical variables (remaining columns, if any). 
+
+    Args:
+        X (np.ndarray): Input array of shape (N, d), where the first column 
+                        contains text data, and the remaining columns contain 
+                        categorical variables.
+
+    Returns:
+        Tuple[np.ndarray, Optional[np.ndarray], bool]:
+            - text (np.ndarray): The first column of X, converted to strings.
+            - categorical_variables (Optional[np.ndarray]): The remaining columns 
+              of X, converted to integers if applicable; None if no categorical 
+              variables are present.
+            - no_cat_var (bool): True if there are no categorical variables, 
+              False otherwise.
+
+    Raises:
+        AssertionError: If X is not a NumPy array.
+        ValueError: If the first column cannot be cast to string.
+        ValueError: If categorical columns cannot be cast to integers.
+    """
+
     assert isinstance(X, np.ndarray), (
         "X must be a numpy array of shape (N,d), with the first column being the text and the rest being the categorical variables."
     )

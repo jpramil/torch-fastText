@@ -99,6 +99,26 @@ class torchFastText:
     direct_bagging: Optional[bool] = True # Use nn.EmbeddingBag instead of nn.Embedding
 
     def _build_pytorch_model(self):
+        """
+        Initializes pytorch_model internal attribute (torchFastText).
+
+        Configures the number of rows required for the embedding matrix,
+        ensuring consistency with the tokenizer (if available).
+
+        Raises:
+            ValueError: If neither `num_rows` nor a valid `tokenizer` is provided.
+
+        Warnings:
+            A warning is logged if `num_rows` is provided but differs from the expected
+            value computed as `num_tokens + tokenizer.get_nwords() + 1`. In this case,
+            `num_rows` is set to the maximum of the two values.
+
+        Attributes Modified:
+            - `num_rows`: Adjusted to match the expected vocabulary size.
+            - `padding_idx`: Set to `num_rows - 1`.
+            - `pytorch_model`: Instantiated as a `FastTextModel` with the configured parameters.
+
+        """
         if self.num_rows is None:
             if self.tokenizer is None:
                 raise ValueError(
@@ -208,7 +228,7 @@ class torchFastText:
 
         Args:
             tokenizer: A NGramTokenizer object that provides min_n, max_n, and other variables.
-            Refer to the NGramTokenizer, FastTextModule and above constructor for mthe other variables.
+            Refer to the NGramTokenizer, FastTextModule and above constructor for the other variables.
 
         Returns:
             torchFastText: An instance of torchFastText initialized using the tokenizer.
